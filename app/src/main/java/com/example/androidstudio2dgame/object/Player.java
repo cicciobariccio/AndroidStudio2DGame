@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import com.example.androidstudio2dgame.GameLoop;
 import com.example.androidstudio2dgame.Joystick;
 import com.example.androidstudio2dgame.R;
+import com.example.androidstudio2dgame.Utils;
 
 /** Player is the main character of the game, which the user can control with a touch joystick.
  * The player class is an extension of a circle, which is an extension of a GameObject
@@ -32,5 +33,13 @@ public class Player extends Circle {
         // Update position
         positionX += velocityX;
         positionY += velocityY;
+
+        // Update direction
+        if (velocityX != 0 || velocityY != 0){
+            // Normalize velocity to get direction (unit vector of velocity)
+            double distance = Utils.getDistanceBetweenPoints(0, 0, velocityX, velocityY);
+            directionX = velocityX/distance;
+            directionY = velocityY/distance;
+        }
     }
 }

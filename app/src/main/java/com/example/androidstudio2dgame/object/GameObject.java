@@ -10,8 +10,10 @@ public abstract class GameObject {
 
     protected double positionY;
     protected double positionX;
-    protected double velocityX;
-    protected double velocityY;
+    protected double velocityY = 0;
+    protected double velocityX = 0;
+    protected double directionX = 1;
+    protected double directionY = 0;
 
     public GameObject(double positionX, double positionY) {
         this.positionX = positionX;
@@ -36,4 +38,11 @@ public abstract class GameObject {
         return positionY;
     }
 
+    protected double getDirectionX() {
+        return directionX;
+    }
+
+    protected double getDirectionY() {
+        return directionY;
+    }
 }
