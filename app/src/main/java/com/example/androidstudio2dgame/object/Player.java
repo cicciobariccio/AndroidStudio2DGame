@@ -1,6 +1,7 @@
 package com.example.androidstudio2dgame.object;
 
 import android.content.Context;
+import android.graphics.Canvas;
 
 import androidx.core.content.ContextCompat;
 
@@ -15,14 +16,18 @@ import com.example.androidstudio2dgame.Utils;
 
 public class Player extends Circle {
 
-    public static final double SPEED_PIXELS_PER_SECOND = 400.0;
+    public static final double SPEED_PIXELS_PER_SECOND = 600.0;
+    public static final int MAX_HEALTH_POINTS = 10;
     private static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
     private final Joystick joystick;
+    private HealthBar healthBar;
+    private int healthPoints;
 
     public Player(Context context, Joystick joystick, double positionY, double positionX, double radius) {
         super(context, ContextCompat.getColor(context, R.color.player), positionX, positionY, radius);
-
         this.joystick = joystick;
+        this.healthBar = new HealthBar(context, this);
+        this.healthPoints = MAX_HEALTH_POINTS;
     }
 
     public void update() {
@@ -41,5 +46,23 @@ public class Player extends Circle {
             directionX = velocityX/distance;
             directionY = velocityY/distance;
         }
+    }
+
+    @Override
+    public void draw(Canvas canvas) {
+        super.draw(canvas);
+
+        healthBar.draw(canvas);
+    }
+
+    public int getHealthPoints() {
+        return healthPoints;
+    }
+
+    public void setHealthPoints(int healthPoints) {
+        if (healthPoints >= 0){
+            this.healthPoints = healthPoints;
+        }
+
     }
 }

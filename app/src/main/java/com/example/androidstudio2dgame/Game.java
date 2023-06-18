@@ -170,6 +170,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
             Circle enemy = iteratorEnemy.next();
             if (Circle.isColliding(enemy, player)) {
                 iteratorEnemy.remove();
+                player.setHealthPoints(player.getHealthPoints() - 1);
                 continue;
             }
 
