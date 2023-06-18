@@ -6,10 +6,12 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+
+import com.example.androidstudio2dgame.object.Enemy;
+import com.example.androidstudio2dgame.object.Player;
 
 /**
  *  Game manages all objects in the game and is responsible for updateing all states and render all objects to screen
@@ -18,6 +20,7 @@ import androidx.core.content.ContextCompat;
 public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Player player;
     private final Joystick joystick;
+    private final Enemy enemy;
     private GameLoop gameLoop;
 
     public Game(Context context) {
@@ -31,6 +34,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         joystick = new Joystick(275,700,70,40);
         player = new Player(getContext(), joystick, 500, 500, 30);
+        enemy = new Enemy(getContext(), player, 500, 200, 30);
 
         setFocusable(true);
     }
@@ -81,6 +85,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         joystick.draw(canvas);
         player.draw(canvas);
+        enemy.draw(canvas);
     }
 
     public void drawUPS(Canvas canvas){
@@ -104,5 +109,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public void update() {
         joystick.update();
         player.update();
+        enemy.update();
     }
 }

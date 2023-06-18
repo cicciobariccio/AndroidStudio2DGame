@@ -1,9 +1,10 @@
-package com.example.androidstudio2dgame;
+package com.example.androidstudio2dgame.object;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.content.Context;
-import androidx.core.content.ContextCompat;
+
+import com.example.androidstudio2dgame.GameLoop;
 
 /**
  *  Circle is an abstract class which implements a draw method from GameObject for drawing the object as a Circle.
@@ -11,6 +12,8 @@ import androidx.core.content.ContextCompat;
 
 public abstract class Circle extends GameObject {
 
+    public static final double SPEED_PIXELS_PER_SECOND = Player.SPEED_PIXELS_PER_SECOND * 0.6;
+    public static final double MAX_SPEED = SPEED_PIXELS_PER_SECOND / GameLoop.MAX_UPS;
     protected double radius;
     protected Paint paint;
 
