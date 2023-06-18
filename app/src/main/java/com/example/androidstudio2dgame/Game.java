@@ -30,7 +30,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         gameLoop = new GameLoop(this, surfaceholder);
 
         joystick = new Joystick(275,700,70,40);
-        player = new Player(getContext(), 500, 500, 30);
+        player = new Player(getContext(), joystick, 500, 500, 30);
 
         setFocusable(true);
     }
@@ -103,6 +103,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
     public void update() {
         joystick.update();
-        player.update(joystick);
+        player.update();
     }
 }
