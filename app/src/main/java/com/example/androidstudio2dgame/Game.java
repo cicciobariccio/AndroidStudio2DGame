@@ -1,8 +1,11 @@
 package com.example.androidstudio2dgame;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -36,6 +39,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     private int numberOfSpellToCast = 0;
     private GameOver gameOver;
     private Performance performance;
+    private GameDisplay gameDisplay;
 
     public Game(Context context) {
         super(context);
@@ -53,6 +57,11 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         // Initialize Game objects
         player = new Player(context, joystick, 500, 500, 30);
+
+        // Initialize game display and center it around the player
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        gameDisplay = new GameDisplay(displayMetrics.widthPixels, displayMetrics.heightPixels, player);
 
         setFocusable(true);
     }
@@ -98,9 +107,8 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
     public void surfaceCreated(@NonNull SurfaceHolder holder) {
 
         if (gameLoop.getState().equals(Thread.State.TERMINATED)) {
-            SurfaceHolder surfaceHolder = getHolder();
-            surfaceHolder.addCallback(this);
-            gameLoop = new GameLoop(this, surfaceHolder);
+
+            gameLoop = new GameLoop(this, holder);
         }
         gameLoop.startLoop();
     }
@@ -126,15 +134,15 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
         performance.draw(canvas);
         
         // draw game object
-        player.draw(canvas);
+        player.draw(canvas, gameDisplay);
 
         // Draw each enemy
         for (Enemy enemy : enemyList) {
-            enemy.draw(canvas);
+            enemy.draw(canvas, gameDisplay);
         }
         // Draw each spell
         for (Spell spell : spellList) {
-            spell.draw(canvas);
+            spell.draw(canvas, gameDisplay);
         }
 
         // Draw GameOver
@@ -197,7 +205,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         }
 
-
+        gameDisplay.update();
 
     }
 
