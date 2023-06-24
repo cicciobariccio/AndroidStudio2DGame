@@ -1,4 +1,4 @@
-package com.example.androidstudio2dgame.object;
+package com.example.androidstudio2dgame.gameobject;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,9 +6,10 @@ import android.graphics.Canvas;
 import androidx.core.content.ContextCompat;
 
 import com.example.androidstudio2dgame.GameLoop;
-import com.example.androidstudio2dgame.Joystick;
+import com.example.androidstudio2dgame.gamepanel.Joystick;
 import com.example.androidstudio2dgame.R;
 import com.example.androidstudio2dgame.Utils;
+import com.example.androidstudio2dgame.gamepanel.HealthBar;
 
 /** Player is the main character of the game, which the user can control with a touch joystick.
  * The player class is an extension of a circle, which is an extension of a GameObject

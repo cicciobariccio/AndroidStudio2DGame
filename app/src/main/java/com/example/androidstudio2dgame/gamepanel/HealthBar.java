@@ -1,4 +1,4 @@
-package com.example.androidstudio2dgame.object;
+package com.example.androidstudio2dgame.gamepanel;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import androidx.core.content.ContextCompat;
 
 import com.example.androidstudio2dgame.R;
+import com.example.androidstudio2dgame.gameobject.Player;
 
 /**
  * HealthBar displays the players health to the screen
