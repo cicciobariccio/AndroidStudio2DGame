@@ -1,5 +1,6 @@
 package com.example.androidstudio2dgame;
 
+import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -20,6 +21,7 @@ import com.example.androidstudio2dgame.gamepanel.GameOver;
 import com.example.androidstudio2dgame.gameobject.Player;
 import com.example.androidstudio2dgame.gameobject.Spell;
 import com.example.androidstudio2dgame.gamepanel.Performance;
+import com.example.androidstudio2dgame.graphics.Animator;
 import com.example.androidstudio2dgame.graphics.SpriteSheet;
 
 import java.util.ArrayList;
@@ -58,7 +60,9 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback {
 
         // Initialize Game objects
         SpriteSheet spriteSheet = new SpriteSheet(context);
-        player = new Player(context, joystick, 500, 500, 30, spriteSheet.getPlayerSprite());
+        Animator animator = new Animator(spriteSheet.getPlayerSpriteArray());
+
+        player = new Player(context, joystick, 500, 500, 30, animator);
 
         // Initialize game display and center it around the player
         DisplayMetrics displayMetrics = new DisplayMetrics();

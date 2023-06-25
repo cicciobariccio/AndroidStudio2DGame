@@ -11,6 +11,7 @@ import com.example.androidstudio2dgame.gamepanel.Joystick;
 import com.example.androidstudio2dgame.R;
 import com.example.androidstudio2dgame.Utils;
 import com.example.androidstudio2dgame.gamepanel.HealthBar;
+import com.example.androidstudio2dgame.graphics.Animator;
 import com.example.androidstudio2dgame.graphics.Sprite;
 
 /** Player is the main character of the game, which the user can control with a touch joystick.
@@ -25,14 +26,16 @@ public class Player extends Circle {
     private final Joystick joystick;
     private HealthBar healthBar;
     private int healthPoints;
-    private Sprite sprite;
+    private Animator animator;
+    private PlayerState playerState;
 
-    public Player(Context context, Joystick joystick, double positionY, double positionX, double radius, Sprite sprite) {
+    public Player(Context context, Joystick joystick, double positionY, double positionX, double radius, Animator animator) {
         super(context, ContextCompat.getColor(context, R.color.player), positionX, positionY, radius);
         this.joystick = joystick;
         this.healthBar = new HealthBar(context, this);
         this.healthPoints = MAX_HEALTH_POINTS;
-        this.sprite = sprite;
+        this.animator = animator;
+        this.playerState = new PlayerState(this);
     }
 
     public void update() {
@@ -51,15 +54,15 @@ public class Player extends Circle {
             directionX = velocityX/distance;
             directionY = velocityY/distance;
         }
+
+        playerState.update();
     }
 
     @Override
     public void draw(Canvas canvas, GameDisplay gameDisplay) {
+        animator.draw(canvas, gameDisplay, this);
 
-        sprite.draw(canvas,
-                (int) gameDisplay.gameToDisplayCoordinatesX(getPositionX()) - sprite.getWidth()/2,
-                (int) gameDisplay.gameToDisplayCoordinatesY(getPositionY()) - sprite.getHeight()/2
-        );
+
 
         healthBar.draw(canvas, gameDisplay);
     }
@@ -74,4 +77,9 @@ public class Player extends Circle {
         }
 
     }
+
+    public PlayerState getPlayerState() {
+        return playerState;
+    }
+
 }

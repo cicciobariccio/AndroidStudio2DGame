@@ -19,9 +19,13 @@ public class SpriteSheet {
         bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.sprite_sheet, bitmapOptions);
     }
 
-    public Sprite getPlayerSprite() {
+    public Sprite[] getPlayerSpriteArray() {
+        Sprite[] spriteArray = new Sprite[3];
+        spriteArray[0] = new Sprite(this, new Rect(0*64, 0, 1*64, 64));
+        spriteArray[1] = new Sprite(this, new Rect(1*64, 0, 2*64, 64));
+        spriteArray[2] = new Sprite(this, new Rect(2*64, 0, 3*64, 64));
 
-        return new Sprite(this, new Rect(0, 0, 64, 64));
+        return spriteArray;
     }
 
     public Bitmap getBitmap() {
